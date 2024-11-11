@@ -26,7 +26,7 @@ Example `config.json`:
     "assembly": "Assembly 1",
 
     // model prefix (e.g. my_package/resource)
-    "path_prefix": ".../...",
+    "stl_prefix": ".../...",
 
     // robot name
     "name": "my_robot"

@@ -31,7 +31,7 @@ class Onshape:
         nonce = make_nonce()
         content_type: str = headers.get("Content-Type") if headers.get("Content-Type") else "application/json"
 
-        request_headers = {
+        request_headers: dict[str, str | list[str]] = {
             "Content-Type": content_type,
             "Date": date,
             "On-Nonce": nonce,
@@ -48,7 +48,7 @@ class Onshape:
         
         return request_headers
     
-    def send_request(self, method: str, path: str, query={}, headers={}, body={}, base_url="https://cad.onshape.com"):
+    def send_request(self, method: str, path: str, query={}, headers={}, body={}, base_url="https://cad.onshape.com") -> tuple[requests.Response, bool]:
         req_headers = self.make_headers(method, path, query, headers)
         url = base_url + path + "?" + urllib.parse.urlencode(query)
         json_body = json.dumps(body) if type(body) == dict else body

@@ -1,2 +1,3 @@
-urdfpy
+lxml
 requests
+numpy

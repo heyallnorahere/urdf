@@ -9,6 +9,15 @@ from .assembly import Assembly
 from .builder import Builder
 from .version import OnshapeVersion
 
+def get_config(config, key: str, default=None):
+    if key in config:
+        return config[key]
+    
+    if default is None:
+        raise KeyError(f"Required config value not present: {key}")
+    
+    return default
+
 workdir = getcwd()
 if len(argv) > 1:
     workdir = abspath(argv[1])
@@ -27,8 +36,8 @@ if access_key is not None:
     secret_key = getenv("ONSHAPE_SECRET_KEY")
     auth = OnshapeAuth(access_key, secret_key)
 
-document_id = config["document"]
-document_version = OnshapeVersion("v", config["version"])
+document_id = get_config(config, "document")
+document_version = OnshapeVersion("v", get_config(config, "version"))
 
 print(f"Connecting to Onshape {'not using' if auth is None else 'using'} auth keys")
 onshape = Onshape(auth)
@@ -41,7 +50,7 @@ if elements is None:
     raise RuntimeError("Failed to retrieve elements for document")
 
 assembly = None
-assemblyName = config["assembly"]
+assemblyName = get_config(config, "assembly")
 for element in elements:
     if isinstance(element, Assembly) and element.name == assemblyName:
         assembly = element
@@ -50,5 +59,5 @@ if assembly is None:
     raise FileNotFoundError(f"Failed to find assembly: {assemblyName}")
 
 print(f"Found assembly of name {assemblyName}")
-builder = Builder(config["stl_prefix"])
-builder.build(workdir, assembly, config["name"])
+builder = Builder(get_config(config, "stl_prefix", ""))
+builder.build(workdir, assembly, get_config(config, "name", assemblyName))

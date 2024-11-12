@@ -15,7 +15,8 @@ class Part:
     def export_stl(self, file: BufferedWriter) -> bool:
         url = f"/api/parts/d/{self.document}/{self.version.get()}/e/{self.studio}/partid/{self.id}/stl"
         query = {
-            "units": "millimeter"
+            "units": "meter",
+            "mode": "binary"
         }
 
         res, success = self.api.send_request("get", url, query)

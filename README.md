@@ -2,7 +2,7 @@
 
 This script converts Onshape assemblies to ROS URDF files.
 
-Must be run on Python<3.7 due to errors in the URDF library lol
+**This script may produce undefined behavior if the assembly has conflicts.**
 
 CLI usage:
 ```bash
@@ -25,8 +25,8 @@ Example `config.json`:
     "version": "...",
     "assembly": "Assembly 1",
 
-    // model prefix (e.g. my_package/resource)
-    "stl_prefix": ".../...",
+    // model path prefix
+    "stl_prefix": "my_package/resource",
 
     // robot name
     "name": "my_robot"

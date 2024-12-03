@@ -33,7 +33,7 @@ class Mate:
             k = connector["zAxis"]
             position = connector["origin"]
 
-            path = entity["matedOccurence"]
+            path = entity["matedOccurrence"]
             self.occurrences.append(MatedOccurrence(path, i, j, k, position))
 
 class Group:

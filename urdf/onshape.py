@@ -68,7 +68,7 @@ class Onshape:
             
             return self.send_request(method, location.path, query=new_query, headers=headers, body=body, base_url=new_base_url)
         elif not 200 <= res.status_code <= 206:
-            print(f"{method} POST to {url} returned status code {res.status_code}")
+            print(f"{method} request to {url} returned status code {res.status_code}")
             success = False
         
         return res, success

@@ -1,13 +1,24 @@
 from .onshape import Onshape
 
+versions = {}
 def get_document_versions(api: Onshape, document: str, type: str):
+    if document in versions:
+        documentVersions = versions[document]
+        if type in documentVersions:
+            return documentVersions[type]
+    else:
+        versions[document] = {}
+
     path = f"/api/documents/d/{document}/{type}"
     res, success = api.send_request("get", path)
 
     if not success:
         return None
     
-    return res.json()
+    result = res.json()
+    versions[document][type] = result
+    
+    return result
 
 class OnshapeVersion:
     def __init__(self, type: str, id: str):

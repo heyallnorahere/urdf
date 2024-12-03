@@ -80,6 +80,8 @@ class Builder:
             instances = self.get_instances(current_node)
             current_node = instances[id]
 
+        return current_node
+
     def build(self, workdir: str, assembly: Assembly, robot_name: str):
         occurrences = assembly.get_occurrences()
         exported_stls = []
